@@ -394,10 +394,52 @@ wc -l sam/*
    28369 total
 
 #### Ex. 36: Note that gzcat will decompress all files you give it and send the 
-####         output to _stdout_. Knowing this, count how many lines are in all 
+####         output to _stdout_. Knowing this, count how many lines are in each of the 
 ####         the `R1` files in `fastq` (after decompressing them into text files),
 ####         and also count up all the lines in the `R1` files in `fastq`. 
 ####         Note they should be the same.
+
+mkdir fq_unzip
+cp fastq/*R1* fq_unzip; gunzip fq_unzip/*
+wc -l fq_unzip/*
+
+-----
+
+     748 fq_unzip/DPCh_plate1_A05_S5.R1.fq
+     472 fq_unzip/DPCh_plate1_A06_S6.R1.fq
+     548 fq_unzip/DPCh_plate1_A11_S11.R1.fq
+     776 fq_unzip/DPCh_plate1_A12_S12.R1.fq
+     744 fq_unzip/DPCh_plate1_B05_S17.R1.fq
+     636 fq_unzip/DPCh_plate1_B06_S18.R1.fq
+     640 fq_unzip/DPCh_plate1_B11_S23.R1.fq
+     508 fq_unzip/DPCh_plate1_B12_S24.R1.fq
+     688 fq_unzip/DPCh_plate1_C05_S29.R1.fq
+     428 fq_unzip/DPCh_plate1_C06_S30.R1.fq
+     668 fq_unzip/DPCh_plate1_C11_S35.R1.fq
+     776 fq_unzip/DPCh_plate1_C12_S36.R1.fq
+     428 fq_unzip/DPCh_plate1_D05_S41.R1.fq
+     544 fq_unzip/DPCh_plate1_D06_S42.R1.fq
+     496 fq_unzip/DPCh_plate1_D11_S47.R1.fq
+     652 fq_unzip/DPCh_plate1_D12_S48.R1.fq
+     680 fq_unzip/DPCh_plate1_E05_S53.R1.fq
+     632 fq_unzip/DPCh_plate1_E06_S54.R1.fq
+     400 fq_unzip/DPCh_plate1_E11_S59.R1.fq
+     508 fq_unzip/DPCh_plate1_E12_S60.R1.fq
+     772 fq_unzip/DPCh_plate1_F05_S65.R1.fq
+     628 fq_unzip/DPCh_plate1_F06_S66.R1.fq
+     624 fq_unzip/DPCh_plate1_F11_S71.R1.fq
+     596 fq_unzip/DPCh_plate1_F12_S72.R1.fq
+     592 fq_unzip/DPCh_plate1_G05_S77.R1.fq
+     800 fq_unzip/DPCh_plate1_G06_S78.R1.fq
+     488 fq_unzip/DPCh_plate1_G11_S83.R1.fq
+     608 fq_unzip/DPCh_plate1_G12_S84.R1.fq
+     556 fq_unzip/DPCh_plate1_H05_S89.R1.fq
+     556 fq_unzip/DPCh_plate1_H06_S90.R1.fq
+     404 fq_unzip/DPCh_plate1_H11_S95.R1.fq
+     768 fq_unzip/DPCh_plate1_H12_S96.R1.fq
+   19364 total
+   
+-----
 
 gzcat fastq/*R1* | wc -l
 
@@ -406,6 +448,8 @@ gzcat fastq/*R1* | wc -l
    19364
    
 -----
+
+
 
 #### Ex. 37: Now, gzcat all the `R1` files in `fastq` and redirect that
 ####         to a file called `R1_all_via_gzcat.fq` in the top directory of the repo
@@ -484,6 +528,7 @@ du -h sam/*
 472K	sam/DPCh_plate1_A06_S6.sam
 
 #### Ex. 47: Print the last 15 lines of `sam/DPCh_plate1_A05_S5.sam` to _stdout_
+
 tail -n 15 sam/DPCh_plate1_A05_S5.sam
 
 -----
@@ -547,23 +592,20 @@ Estimated 79 files in the current directory
 ####         and then add execute (`x`) permissions to users and groups with
 ####         the "add-or-subtract permissions syntax" of `chmod`, then long list it again
 
-BZ581A2/cons-genomics-homework-repo $ ls -lh
+ls -lh count_files.sh
 
 -----
 
-total 160
--rwx------@ 1 caitlinmiller  staff   495B Jan 25 11:16 README.md
-drwx------@ 1 caitlinmiller  staff    16K Jan 25 11:16 bam
--rwx------@ 1 caitlinmiller  staff   205B Feb  1 10:30 cons-genomics-homework-repo.Rproj
 -rwx------@ 1 caitlinmiller  staff    96B Jan 25 11:16 count_files.sh
-drwx------@ 1 caitlinmiller  staff    16K Jan 25 11:16 fastq
-drwx------@ 1 caitlinmiller  staff    16K Jan 25 11:16 metadata
-drwx------@ 1 caitlinmiller  staff    16K Jan 25 11:16 sam
-drwx------@ 1 caitlinmiller  staff    16K Jan 25 11:16 silly
--rwx------@ 1 caitlinmiller  staff    27K Feb  1 13:17 unix-intro-homework.sh
 
 -----
 
+chmod 110 count_files.sh
+ls -lh count_files.sh
+
+-----
+
+---x--x--- 1 caitlinmiller  staff    96B Jan 25 11:16 count_files.sh
 
 
 
@@ -573,4 +615,36 @@ drwx------@ 1 caitlinmiller  staff    16K Jan 25 11:16 silly
 ####         specifiers to `chmod`. Do this for all 5 files (one chmod command for each),
 ####         and at the end do `ls -l silly` to verify they are correct.
 
+ls -lhR
 
+drwx------@ 3 caitlinmiller  staff    96B Feb  3 11:15 DIRdrwxrwxr-x
+-rwx------@ 1 caitlinmiller  staff     0B Feb  3 11:15 FILE-rw-r-----
+-rwx------@ 1 caitlinmiller  staff     0B Feb  3 11:15 FILE-rw-rw-r--
+-rwx------@ 1 caitlinmiller  staff     0B Feb  3 11:15 FILE-rwxr-----
+-rwx------@ 1 caitlinmiller  staff     0B Feb  3 11:15 FILE-rwxrwxr--
+
+./DIRdrwxrwxr-x:
+total 0
+-rwx------@ 1 caitlinmiller  staff     0B Feb  3 11:15 empty
+
+-----
+
+chmod 774 FILE-rwxrwxr--
+chmod 740 FILE-rwxr-----
+chmod 664 FILE-rw-rw-r--
+chmod 640 FILE-rw-r-----
+chmod -R 775 DIRdrwxrwxr-x
+
+-----
+
+cons-genomics-homework-repo/silly $ ls -lhR
+
+drwxrwxr-x@ 3 caitlinmiller  staff    96B Feb  3 11:15 DIRdrwxrwxr-x
+-rw-r-----@ 1 caitlinmiller  staff     0B Feb  3 11:15 FILE-rw-r-----
+-rw-rw-r--@ 1 caitlinmiller  staff     0B Feb  3 11:15 FILE-rw-rw-r--
+-rwxr-----@ 1 caitlinmiller  staff     0B Feb  3 11:15 FILE-rwxr-----
+-rwxrwxr--@ 1 caitlinmiller  staff     0B Feb  3 11:15 FILE-rwxrwxr--
+
+./DIRdrwxrwxr-x:
+total 0
+-rwxrwxr-x@ 1 caitlinmiller  staff     0B Feb  3 11:15 empty
